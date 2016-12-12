@@ -1,0 +1,23 @@
+body{
+
+}
+
+.navbar {
+    background-image: url("../images/friends_backgrnd.jpg");
+    background-position: center;
+    text-align:center;
+    width: 100%;
+    margin:0 auto;
+    float: none;
+    height:150px;
+    background-repeat: no-repeat;
+}
+
+.container{
+	margin-left: 0px;
+}
+
+.ques_area{
+	background-color: pink;
+	height: 500px;
+}
