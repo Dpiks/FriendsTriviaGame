@@ -16,52 +16,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
+    <div id="wrapper">
         <div class="container">
-            <a href="#" class="navbar-left"><img src="./assets/images/central_perk_logo.jpg"></a>
-            <marquee direction="right">
-            </marquee>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 timer_display">
-                <p></p>
-            </div>
-            <div class="col-md-8 progress_bar">
+
+            <div id="header">
+            	<div class="title">
+        		<h1>How well do you know them??</h1>
+        		
+        	</div>
             </div>
         </div>
-    </div>
-    <div class="container ques_area">
-        <div class="row">
-            <div class="col-md-8 question">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 ques_image">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 ans_options">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optradio"><span class="option1"></span>
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optradio"><span class="option2"></span>
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optradio"><span class="option3"></span>
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optradio"><span class="option4"></span>
-                    </label>
+        <div class="container">
+        	<button type="button" class="start">Start Game</button>
+            <div class="row main-area">
+                
+                <div class="col-md-10 ques_area">
+                	<h3 class="timer_display"></h3>
+                    <h2 class="question">
+                    </h2>
+                    <div class="ques_image">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 ans_options">
+                           <p class="choice" id="0"></p>
+                           <p class="choice" id="1"></p>
+                           <p class="choice" id="2"></p>
+                           <p class="choice" id="3"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

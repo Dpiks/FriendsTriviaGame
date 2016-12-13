@@ -71,80 +71,74 @@ var question_list = [{
 ]
 
 var showImage;
+
 var count = 0;
+var seconds=10;
 
-$(".timer_display").html("<p>hello</p>");
+var counter;
 
-// This function will replace display whatever image it's given
-// in the 'src' attribute of the img tag.
+window.onload = function() {
+	$(".start").on("click",startGame);
+
+
+	
+
+}
+
+function startGame() {
+	  // TODO: Use showImage to hold the setInterval to run nextImage.
+	  	$(".main-area").css("visibility","visible");
+	  	displayImage();
+	  	showImage=setInterval(displayImage,10000); 
+	  	counter=setInterval(timer, 1000);
+
+	  
+
+}
+
 function displayImage() {
+	seconds=10;
+	
+	
     $(".question").html("<h2>" + question_list[count].question + "</h2>");
     $(".ques_image").html("<img src=" + question_list[count].ques_image + " width='400px'>");
-    $("<input>").css("visibility","visible");
-    $(".option1").append(question_list[count].answer[0]);
-    $(".option2").append(question_list[count].answer[1]);
-    $(".option3").append(question_list[count].answer[2]);
-    $(".option4").append(question_list[count].answer[3]);
-
-}
-
-function randomQuesBank() {
-
-}
-
-function nextImage() {
-
-    // TODO: Increment the count by 1.
-    if (count < question_list.length) {
-        count++;
-
-        $(".question").html("");
-    //     $("<input>").css("visibility","hidden");
     
-     $(".option1").html("");
-     $(".option2").html("");
-     $(".option3").html("");
-     $(".option4").html("");
+    $("#0").html(question_list[count].answer[0]);
+    $("#1").html(question_list[count].answer[1]);
+    $("#2").html(question_list[count].answer[2]);
+    $("#3").html(question_list[count].answer[3]);
 
-
-
-    //     // TODO: Show the loading gif in the "image-holder" div.
-    //     $(".ques_image").html('<img src="./assets/images/loading.gif">');
-
-
-
-        // TODO: Use a setTimeout to run displayImage after 1 second.
-        setTimeout(displayImage, 2000);
+    if(count<question_list.length){
+    	count++;
+    }else{
+    	clearInterval(showImage);
     }
 
 
-
-
 }
 
-// window.onload = function() {
-//     var countdownElement = document.getElementById('countdown'),
-//         downloadButton = document.getElementById('download'),
-//         seconds = 10,
-//         second = 0,
-//         interval;
 
-//     downloadButton.style.display = 'none';
 
-//     interval = setInterval(function() {
-//         countdownElement.firstChild.data = 'You can start your download in ' + (seconds - second) + ' seconds';
-//         if (second >= seconds) {
-//             downloadButton.style.display = 'block';
-//             clearInterval(interval);
-//         }
 
-//         second++;
-//     }, 1000);
-// }
+function timer()
+{
+  
+  if (seconds < 0)
+  {
+     clearInterval(counter);
+
+     return;
+  }
+
+ $(".timer_display").html(seconds + " secs");
+ seconds--; // watch for spelling
+}
+
+
 
 // function startSlideshow() {
 //     // TODO: Use showImage to hold the setInterval to run nextImage.
-showImage = setInterval(nextImage, 2000);
+//showImage = setInterval(displayImage, 10000);
 
 // }
 
@@ -155,4 +149,4 @@ showImage = setInterval(nextImage, 2000);
 // }
 
 // This will run the display image function as soon as the page loads.
-displayImage();
+
