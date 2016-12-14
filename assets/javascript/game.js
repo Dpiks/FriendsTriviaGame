@@ -76,46 +76,85 @@ var count = 0;
 var seconds = 10;
 
 var counter;
+var correct=0;
+var incorrect=0;
+var unanswered=0;
+
+var score = 0;
+var currentCount;
 
 window.onload = function() {
     $(".start").on("click", startGame);
-    $(".choice").on("click",function(){
-    	//console.log(this.id);
-    	//stop();
-    	if(this.id===question_list[count].cor_answer){
-    		$(".message").html("You got it right");
+    $(".choice").on("click", function() {
+        stop();
+        checkAnswer(this);
+
+
+    })
+    $(".next_ques").on("click", function() {
+    	if(count>=question_list.length){
+    		displayFinalScore();
 
     	}else{
-    		$(".message").html("You got it wrong. The right answer is "+question_list[count].answer[question_list[count].cor_answer]);
-    	}
-    	count++;
-	
-})
+        nextQuestion();
+    }
+
+    })
+
+    $(".restartGame_button").on("click",function(){
+    	startGame();
+    })
+
+
 
 }
 
-function stop(){
-	clearInterval(counter);
-	clearInterval(showImage);
-}
-
-function answerDecision(){
-	console.log(this.id);
-	if(question_list.cor_answer===this.id){
-		//message answer is right
-		//increase score by 1
-		//display next question 
-		//reset timer
-	}else{
-		//show the right answer
-		//display next question
-		//reset timer
-	}
+function displayFinalScore(){
+	$(".ques_area").css("display", "none");
+	$(".result_area").css("display","block");
+	$(".answered").html("Correct: "+correct + "    Incorrect: " +incorrect);
+	$(".unanswered").html(unanswered);
+	score=correct*10;
+	$(".finalScore").html(score);
 
 }
+
+function checkAnswer(event) {
+    currentCount = count - 1;
+    if (event.id == question_list[currentCount].cor_answer) {
+        $(event).css("background-color", "green");
+        correct++;
+        $(".correct").html("Correct:" + correct);
+
+
+
+    } else {
+        
+        $(event).css("background-color", "red");
+        $("#" + question_list[currentCount].cor_answer).css("background-color", "green");
+        incorrect++;
+        $(".incorrect").html("Incorrect:" + incorrect);
+
+    }
+    //$(".score").html("Score:" + score);
+    $(".next_ques").css("visibility", "visible");
+}
+//count++;
+
+
+function stop() {
+    clearInterval(counter);
+    clearInterval(showImage);
+}
+
+function nextQuestion() {
+    displayImage();
+    counter = setInterval(timer, 1000);
+}
+
 
 function startGame() {
-
+	$(".start").css("visibility","hidden");
     $(".main-area").css("visibility", "visible");
     displayImage();
     showImage = setInterval(displayImage, 11000);
@@ -126,17 +165,21 @@ function startGame() {
 }
 
 function displayImage() {
+    console.log("Question displayed" + count);
+     $(".next_ques").css("visibility", "hidden");
 
     if (count < question_list.length) {
-    	 seconds =10;
+        seconds = 10;
+        $(".timer_display").html(seconds + " secs");
         $(".question").html("<h2>" + question_list[count].question + "</h2>");
         $(".ques_image").html("<img src=" + question_list[count].ques_image + " width='400px'>");
+        $(".choice").css("background-color", "#FFFFFF");
 
         $("#0").html(question_list[count].answer[0]);
         $("#1").html(question_list[count].answer[1]);
         $("#2").html(question_list[count].answer[2]);
         $("#3").html(question_list[count].answer[3]);
-        //count++;
+        count++;
     } else {
         clearInterval(showImage);
         //show final results
@@ -148,10 +191,19 @@ function displayImage() {
 
 
 
+
 function timer() {
     $(".timer_display").html(seconds + " secs");
-    if (seconds < 0) {
+    if (seconds ===0) {
+    	currentCount = count - 1;
+    	$("#" + question_list[currentCount].cor_answer).css("background-color", "green");
+    	unanswered++;
+    	 $(".unanswered").html("unanswered:" + unanswered);
+    $(".next_ques").css("visibility", "visible");
+
         clearInterval(counter);
+        
+
 
         return;
     }
@@ -159,5 +211,3 @@ function timer() {
 
     seconds--;
 }
-
-

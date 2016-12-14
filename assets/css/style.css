@@ -7,6 +7,11 @@ body{
     background: url(../images/middle_bg.jpg) repeat-y center;
     
 }
+.col-md-3{
+	width: auto;
+	margin-left: 30px;
+}
+
 .title {
     font-family: 'Lora', serif;
     font-size: 14px;
@@ -60,4 +65,12 @@ body{
     background: #FFFFFF;
     box-shadow: 0 2px 6px #50293C, 0 0 40px #FFECDF inset;
    
+}
+
+.result_area{
+	display: none;
+}
+
+.next_ques{
+	visibility: hidden;
 }
