@@ -97,7 +97,7 @@ window.onload = function() {
         $(".result_area").css("display", "none");
         
         location.reload();
-        $(".ques_area").css("display", "block");
+        
 
     })
 
@@ -207,12 +207,11 @@ function timer() {
         $(".unanswered").html("unanswered:" + unanswered); 
         lastQuestionUnanswered=true;       
         
-        // if (count >= question_list.length) {
-        //     displayFinalScore();
+         if (count >= question_list.length) {
+             displayFinalScore();
+             clearInterval(counter);
 
-        // } else {
-        //     nextQuestion();
-        // }
+        } 
 
 
 
