@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Homemade+Apple|Rock+Salt');
+
 body{
 	background-color: #ffecdf;
 }
@@ -9,11 +11,13 @@ body{
 }
 .col-md-3{
 	width: auto;
-	margin-left: 30px;
+	margin-left: 15%;
+	
 }
 
 .title {
-    font-family: 'Lora', serif;
+    font-family: 'Rock Salt', cursive;
+
     font-size: 14px;
     width: 100%;
     position: relative;
@@ -53,9 +57,16 @@ body{
     box-shadow: 0 2px 6px #50293C, 0 0 40px #FFECDF inset;
 }
 
+.timer_display{
+	text-align: center;
+}
+
+
 
 
 .ques_area{
+	font-family: 'Lora';
+
 	
 	width: 900px;
 	height: 500px;
@@ -65,6 +76,37 @@ body{
     background: #FFFFFF;
     box-shadow: 0 2px 6px #50293C, 0 0 40px #FFECDF inset;
    
+}
+
+.question{
+	text-align: center;
+}
+
+.ques_image img { 
+	width:400px;
+	margin-left: 27%;
+}
+/*.ques_image {display: table-cell;vertical-align: middle}*/
+
+/*.ques_image{
+    min-height: 150px;
+    min-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle }
+*/
+.ans_options{
+	margin-left: 27%;
+	width: 400px;
+}
+
+.choice{
+	/*display: inline-block;*/
+	text-align: center;
+	/*margin-left: 27%;
+	width: 400px;*/
 }
 
 .result_area{

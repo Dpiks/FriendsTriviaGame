@@ -76,85 +76,85 @@ var count = 0;
 var seconds = 10;
 
 var counter;
-var correct=0;
-var incorrect=0;
-var unanswered=0;
+var correct = 0;
+var incorrect = 0;
+var unanswered = 0;
 
 var score = 0;
 var currentCount;
 
+var lastQuestionUnanswered=false;
+
 window.onload = function() {
     $(".start").on("click", startGame);
     $(".choice").on("click", function() {
+        $(".timer_display").css("visibility", "hidden");
         stop();
         checkAnswer(this);
+    })   
 
-
-    })
-    $(".next_ques").on("click", function() {
-    	if(count>=question_list.length){
-    		displayFinalScore();
-
-    	}else{
-        nextQuestion();
-    }
+    $(".restartGame_button").on("click", function() {
+        $(".result_area").css("display", "none");
+        
+        location.reload();
+        $(".ques_area").css("display", "block");
 
     })
-
-    $(".restartGame_button").on("click",function(){
-    	startGame();
-    })
-
-
 
 }
 
-function displayFinalScore(){
-	$(".ques_area").css("display", "none");
-	$(".result_area").css("display","block");
-	$(".answered").html("Correct: "+correct + "    Incorrect: " +incorrect);
-	$(".unanswered").html(unanswered);
-	score=correct*10;
-	$(".finalScore").html(score);
+function displayFinalScore() {
+    $(".ques_area").css("display", "none");
+    $(".result_area").css("display", "block");
+    $(".answered").html("Correct: " + correct + "    Incorrect: " + incorrect);
+    $(".unanswered").html(unanswered);
+    score = correct * 10;
+    $(".finalScore").html(score);
 
 }
 
 function checkAnswer(event) {
     currentCount = count - 1;
     if (event.id == question_list[currentCount].cor_answer) {
-        $(event).css("background-color", "green");
+        $(event).css("background-color", "#4caf50");
         correct++;
         $(".correct").html("Correct:" + correct);
-
-
-
     } else {
-        
         $(event).css("background-color", "red");
-        $("#" + question_list[currentCount].cor_answer).css("background-color", "green");
+        $("#" + question_list[currentCount].cor_answer).css("background-color", "#4caf50");
         incorrect++;
         $(".incorrect").html("Incorrect:" + incorrect);
+    }
 
+    if (count >= question_list.length) {
+        displayFinalScore();
+
+    } else {
+        nextQuestion();
     }
     //$(".score").html("Score:" + score);
-    $(".next_ques").css("visibility", "visible");
+    //$(".next_ques").css("visibility", "visible");
 }
 //count++;
 
 
 function stop() {
+
     clearInterval(counter);
     clearInterval(showImage);
+    setTimeout(displayImage, 2000);
+
 }
 
 function nextQuestion() {
-    displayImage();
+    //displayImage();
+
     counter = setInterval(timer, 1000);
 }
 
 
 function startGame() {
-	$(".start").css("visibility","hidden");
+    $(".start").css("visibility", "hidden");
     $(".main-area").css("visibility", "visible");
     displayImage();
     showImage = setInterval(displayImage, 11000);
@@ -165,14 +165,18 @@ function startGame() {
 }
 
 function displayImage() {
-    console.log("Question displayed" + count);
-     $(".next_ques").css("visibility", "hidden");
-
+	
+    $(".timer_display").css("visibility", "visible");
+    if(lastQuestionUnanswered){
+    	counter=setInterval(timer,1000);
+    }
+    
+    
     if (count < question_list.length) {
         seconds = 10;
-        $(".timer_display").html(seconds + " secs");
+        $(".timer_display").html("You have " +seconds + " seconds left!!");
         $(".question").html("<h2>" + question_list[count].question + "</h2>");
-        $(".ques_image").html("<img src=" + question_list[count].ques_image + " width='400px'>");
+        $(".ques_image").html("<img src=" + question_list[count].ques_image + ">");
         $(".choice").css("background-color", "#FFFFFF");
 
         $("#0").html(question_list[count].answer[0]);
@@ -193,21 +197,28 @@ function displayImage() {
 
 
 function timer() {
-    $(".timer_display").html(seconds + " secs");
-    if (seconds ===0) {
-    	currentCount = count - 1;
-    	$("#" + question_list[currentCount].cor_answer).css("background-color", "green");
-    	unanswered++;
-    	 $(".unanswered").html("unanswered:" + unanswered);
-    $(".next_ques").css("visibility", "visible");
-
-        clearInterval(counter);
+   $(".timer_display").html("You have " +seconds + " seconds left!!");
+    if (seconds === 0) {
+    	stop();
+    	 $(".timer_display").css("visibility", "hidden");
+        currentCount = count - 1;
+        $("#" + question_list[currentCount].cor_answer).css("background-color", "#4caf50");
+        unanswered++;
+        $(".unanswered").html("unanswered:" + unanswered); 
+        lastQuestionUnanswered=true;       
         
+        // if (count >= question_list.length) {
+        //     displayFinalScore();
+
+        // } else {
+        //     nextQuestion();
+        // }
+
 
 
         return;
     }
 
-
+    lastQuestionUnanswered=false;
     seconds--;
 }
