@@ -74,8 +74,32 @@ var score = 0;
 var currentCount;
 var lastQuestionUnanswered=false;
 
+ var sounds = {
+      tick_second: {
+          sound: new Howl({
+              urls: ['./assets/sounds/tick.mp3'],
+          })
+      },
+      theme: {
+          sound: new Howl({
+              urls: ['./assets/sounds/theme.mp3'],
+          })
+      },
+      game_win: {
+          sound: new Howl({
+              urls: ['./assets/sounds/game_win.wav'],
+          })
+      },
+      game_lost: {
+          sound: new Howl({
+              urls: ['./assets/sounds/game_lost.wav'],
+          })
+      }
+
+  }
 window.onload = function() {
 	$(window).scrollTop($('#header').position().top);
+	sounds.theme.sound.play();
     $("#header").on("click", startGame);
     $(".choice").on("click", function() {
         $(".timer_display").css("visibility", "hidden");
@@ -150,6 +174,9 @@ function displayImage() {
     if(lastQuestionUnanswered){
     	counter=setInterval(timer,1000);
     }   
+    if(count===question_list.length){
+    	clearInterval(counter);
+    }
     
     if (count < question_list.length) {
         seconds = 20;
@@ -170,7 +197,10 @@ function displayImage() {
 
 function timer() {
    $(".timer_display").html("You have " +seconds + " seconds left!!");
+   sounds.tick_second.sound.play();
+
     if (seconds === 0) {
+    	console.log("inside seconds 0");
     	stop();
     	 $(".timer_display").css("visibility", "hidden");
         currentCount = count - 1;
@@ -187,4 +217,5 @@ function timer() {
     }
     lastQuestionUnanswered=false;
     seconds--;
+
 }
