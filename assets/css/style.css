@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Homemade+Apple|Rock+Salt');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Lora');
 
 body{
 	background-color: #ffecdf;
@@ -16,9 +18,9 @@ body{
 }
 
 .title {
-    font-family: 'Rock Salt', cursive;
+    font-family: 'Lora';
 
-    font-size: 14px;
+    font-size: 12px;
     width: 100%;
     position: relative;
     left: 0px;
@@ -41,7 +43,10 @@ body{
 .main-area{
 	width:980px;
 	padding: 50px;
+	padding-top: 10px;
 	visibility: hidden;	
+	margin-top: 0;
+	color:#50293c;
 	
 
 }
@@ -59,17 +64,19 @@ body{
 
 .timer_display{
 	text-align: center;
+	color: red;
+	font-weight: bold;
 }
 
 
 
 
 .ques_area{
-	font-family: 'Lora';
+	font-family: 'Indie Flower';
 
 	
 	width: 900px;
-	height: 500px;
+	height: 525px;
 	    clear: both;
     margin-right: 80px;
     padding: 8px;
@@ -80,23 +87,14 @@ body{
 
 .question{
 	text-align: center;
+	font-weight: bold;
 }
 
 .ques_image img { 
 	width:400px;
 	margin-left: 27%;
 }
-/*.ques_image {display: table-cell;vertical-align: middle}*/
 
-/*.ques_image{
-    min-height: 150px;
-    min-width: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle }
-*/
 .ans_options{
 	margin-left: 27%;
 	width: 400px;

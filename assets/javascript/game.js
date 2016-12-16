@@ -7,7 +7,6 @@ var question_list = [{
         ],
         cor_answer: 1,
         ques_image: "./assets/images/ques_1_image.jpg",
-
     }, {
         question: " According to Chandler, what phenomenon scares the bejesus out of him?",
         answer: ["Commitment",
@@ -17,16 +16,11 @@ var question_list = [{
         ],
         cor_answer: 1,
         ques_image: "./assets/images/ques_2_image.jpg",
-
-    },
-
-    {
+    }, {
         question: "Monica and Ross had a grandmother who died. Chandler and Joey went to her funeral. Name that grandmother.",
         answer: ["Althea", "Beatrice", "Muriel", "Estelle"],
         cor_answer: 0,
         ques_image: "./assets/images/ques_3_image.jpg",
-
-
     }, {
         question: " Every week TV Guide comes to Chandler and Joey’s apartment. What name appears on the address label?",
         answer: ["Chandler Bing", "Chanandler Bong", "Miss Chanandler Bong", "Chanandler"],
@@ -66,41 +60,41 @@ var question_list = [{
         answer: ["Two pizzas", "Lasagna", "Sandwiches", "Cereal"],
         cor_answer: 2,
         ques_image: "./assets/images/ques_11_image.jpg",
-
     }
 ]
 
 var showImage;
-
 var count = 0;
-var seconds = 10;
-
+var seconds = 20;
 var counter;
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
-
 var score = 0;
 var currentCount;
-
 var lastQuestionUnanswered=false;
 
 window.onload = function() {
-    $(".start").on("click", startGame);
+	$(window).scrollTop($('#header').position().top);
+    $("#header").on("click", startGame);
     $(".choice").on("click", function() {
         $(".timer_display").css("visibility", "hidden");
         stop();
         checkAnswer(this);
-    })   
+    })  
+
+    $(".choice").hover(function(){
+    	$(this).css("background-color","#ffecdf");
+    	$(this).css("border","solid 1px #50293c");
+    },function(){
+    	$(this).css("background-color","");
+    	$(this).css("border","");
+    }) 
 
     $(".restartGame_button").on("click", function() {
-        $(".result_area").css("display", "none");
-        
+        $(".result_area").css("display", "none");        
         location.reload();
-        
-
     })
-
 }
 
 function displayFinalScore() {
@@ -110,7 +104,6 @@ function displayFinalScore() {
     $(".unanswered").html(unanswered);
     score = correct * 10;
     $(".finalScore").html(score);
-
 }
 
 function checkAnswer(event) {
@@ -118,7 +111,7 @@ function checkAnswer(event) {
     if (event.id == question_list[currentCount].cor_answer) {
         $(event).css("background-color", "#4caf50");
         correct++;
-        $(".correct").html("Correct:" + correct);
+        $(".correct").html("Correct: " + correct);
     } else {
         $(event).css("background-color", "red");
         $("#" + question_list[currentCount].cor_answer).css("background-color", "#4caf50");
@@ -128,52 +121,38 @@ function checkAnswer(event) {
 
     if (count >= question_list.length) {
         displayFinalScore();
-
     } else {
         nextQuestion();
-    }
-    //$(".score").html("Score:" + score);
-    //$(".next_ques").css("visibility", "visible");
+    }   
 }
-//count++;
-
 
 function stop() {
-
     clearInterval(counter);
     clearInterval(showImage);
-    setTimeout(displayImage, 2000);
-
+    setTimeout(displayImage, 3000);
 }
 
 function nextQuestion() {
-    //displayImage();
-
     counter = setInterval(timer, 1000);
 }
-
 
 function startGame() {
     $(".start").css("visibility", "hidden");
     $(".main-area").css("visibility", "visible");
-    displayImage();
-    showImage = setInterval(displayImage, 11000);
+    $(window).scrollTop($('.main-area').position().top);
+    displayImage();   
+    showImage = setInterval(displayImage, 21000);
     counter = setInterval(timer, 1000);
-
-
-
 }
 
-function displayImage() {
-	
+function displayImage() {	
     $(".timer_display").css("visibility", "visible");
     if(lastQuestionUnanswered){
     	counter=setInterval(timer,1000);
-    }
-    
+    }   
     
     if (count < question_list.length) {
-        seconds = 10;
+        seconds = 20;
         $(".timer_display").html("You have " +seconds + " seconds left!!");
         $(".question").html("<h2>" + question_list[count].question + "</h2>");
         $(".ques_image").html("<img src=" + question_list[count].ques_image + ">");
@@ -185,16 +164,9 @@ function displayImage() {
         $("#3").html(question_list[count].answer[3]);
         count++;
     } else {
-        clearInterval(showImage);
-        //show final results
+        clearInterval(showImage);        
     }
-
-
 }
-
-
-
-
 
 function timer() {
    $(".timer_display").html("You have " +seconds + " seconds left!!");
@@ -210,14 +182,9 @@ function timer() {
          if (count >= question_list.length) {
              displayFinalScore();
              clearInterval(counter);
-
         } 
-
-
-
         return;
     }
-
     lastQuestionUnanswered=false;
     seconds--;
 }
